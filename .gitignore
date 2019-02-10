@@ -1,0 +1,17 @@
+
+#################
+## ASIC_ERP
+#################
+
+cache/
+temp/
+mincludes/
+upload/
+pdfreport/
+
+*.txt
+*.xls
+*.xlsx
+*.pdf
+*.log
+.htaccess
