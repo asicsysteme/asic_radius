@@ -1,0 +1,1 @@
+view::load_view('%task%');

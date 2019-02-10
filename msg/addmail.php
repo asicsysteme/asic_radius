@@ -1,0 +1,2 @@
+<?php 
+$fullmesage ='<pre>Bonjour '.$user_fname.' '.$user_lname." votre compte a été bien crée, <br />Nom d'utilisateur : ".$user_name.'  <br />Mot de passe : '.$mdp.'<br />Vous pouvez maintenent se connecter sur votre espace a partir de se lien suivant  <br /><a href="'.$urlwebmail.'" target="_blank">'.$urlwebmail.'</a><br /> <br />Si ce lien ne fonctionne pas, copiez et collez l\'URL dans une nouvelle<br />fenêtre de navigateur.<br />';?>
