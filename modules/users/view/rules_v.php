@@ -70,6 +70,9 @@ foreach($modul_array as $check) {
    if (strpos($check['services'], $service_user)) {
       $found_service = true;
    }
+   if(is_array($info_user->Shw('service',1))  AND in_array(json_decode($info_user->Shw('service',1), $service_user))){
+   	  $found_service = true;
+   }
 }
 
 if(!isset($found_service))
