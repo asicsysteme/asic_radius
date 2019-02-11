@@ -3,9 +3,12 @@
 global $db;
 
 $sql = 'SELECT * FROM v_data_consom_this_day_per_user';
-if(!$db->Query($sql)){
-    var_dump($db->Error());
+if(!$db->Query($sql) OR !$db->RowCount()){
+    //var_dump($db->Error());
+    MInit::big_message('Le système n\'a pas encore enregistré des donnée', 'info');
+    exit('');
 }else{
+    
     $brut_array       = $db->RecordsArray();
     //var_dump($brut_array);
     $cp_users         = array_column($brut_array, 'username');
@@ -24,7 +27,7 @@ if(!$db->Query($sql)){
 //fit Tableau etat de connect users
 
 $sql =  'SELECT * FROM v_etat_connect_cp_users';
-if(!$db->Query($sql)){
+if(!$db->Query($sql) OR !$db->RowCount()){
     var_dump($db->Error());
 }else{
     $brut_connect_array       = $db->RecordsArray();
