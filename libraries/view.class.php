@@ -85,12 +85,12 @@ class view {
         $tab_content_s = $permission == "0" ? NULL :'<div id="'.$id.'" class="tab-pane in '.$active.'">
 						<div class="col-xs-12 col-sm-4"></div>
 						<div class="row">
-							<div class="col-sm-10 col-sm-offset-1">
+							
 								<!-- #section:pages/invoice -->';
 								
 
 		$tab_content_e = $permission == "0" ? NULL :'<!-- /section:pages/invoice -->
-							</div>
+							
 						</div><!-- /.row -->						
 					</div>';
         $tab_true = $permission == "0" ? false : true;

@@ -9,9 +9,9 @@ if(!MInit::crypt_tp('id', null, 'D') or !$info_cp_users->get_cp_users())
     // returne message error red to client 
     exit('0#'.$info_cp_users->log .'<br>Les informations pour cette ligne (Produit) sont erronées contactez l\'administrateur');
 }
-$tab_details_user      = view::tab_render('cp_users', 'Info Utilisateur', $add_set=NULL, 'paper-plane-o' , $active = true, 'home');
+$tab_details_user        = view::tab_render('cp_users', 'Info Utilisateur', $add_set=NULL, 'paper-plane-o' , $active = true, 'home');
 $tab_connexion_user      = view::tab_render(null, 'Historique connexions', $add_set=NULL, 'exchange' , $active = false, 'pan_cnx');
-$tab_history_user      = view::tab_render(null, 'Historique log', $add_set=NULL, 'history' , $active = false, 'pan_log');
+$tab_history_user        = view::tab_render(null, 'Historique log', $add_set=NULL, 'history' , $active = false, 'pan_log');
 //$tab_arrivages     = view::tab_render(Null, 'Liste des arrivages', NULL, 'cart-plus' , false, 'arrivages');
 ?>
 <div class="pull-right tableTools-container">

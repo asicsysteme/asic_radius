@@ -75,12 +75,14 @@ $array_column = array(
     
  );
 //Creat new instance
-$html_data_table = new Mdatatable();
-$html_data_table->columns_html = $array_column;
-$html_data_table->title_module = "cp_users_connexions";
-$html_data_table->task = 'cp_users_connexions';
+$html_data_table                 = new Mdatatable();
+$html_data_table->columns_html   = $array_column;
+$html_data_table->title_module   = "Historique Connexion";
+$html_data_table->task           = 'cp_users_connexions';
 //$html_data_table->btn_add_text =  '';
-$html_data_table->task_add     = 'cp_users_connexions';
+$html_data_table->btn_add_check  = true;
+$html_data_table->btn_action     = false;
+
 
 if(!$data = $html_data_table->table_html())
 {
