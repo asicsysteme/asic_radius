@@ -107,12 +107,12 @@ class Mmodul {
 		global $db;
 		$modul_array = array();
 		$sql_modul = "SELECT m.id, m.modul, m.services, m.description 
-		 FROM sys_modules m WHERE m.etat = 1 AND  (m.services LIKE '%\"$user_service\"%' OR m.services LIKE '%-$user_service-%') GROUP BY modul ";
+		 FROM sys_modules m WHERE m.etat = 1 AND  (m.services LIKE '%\"$user_service\"%') GROUP BY modul ";
 		if(!$db->Query($sql_modul))
 		{
 			$db->kill($db->Error());
 		}else{
-			$modul_array = $db->RecordsArray();
+			$modul_array = $db->RecordsSimplArray();
 			return $modul_array;
 		}
 	}

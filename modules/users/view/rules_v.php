@@ -11,6 +11,7 @@ $info_user->id_user = Mreq::tp('id');
  }
 $moduls = new Mmodul;
 $modul_array = $moduls->Get_list_modul($info_user->g('service'));
+
 ?>
 
 <div class="page-header">
@@ -64,13 +65,12 @@ echo $selecte_modul;
 
 
 
-$service_user = '-'.$info_user->Shw('service',1).'-';
+$service_user = $info_user->Shw('service',1);
 
 foreach($modul_array as $check) {
-   if (strpos($check['services'], $service_user)) {
-      $found_service = true;
-   }
-   if(is_array($info_user->Shw('service',1))  AND in_array(json_decode($info_user->Shw('service',1), $service_user))){
+   
+   
+   if(in_array($service_user, json_decode($check['services']))){
    	  $found_service = true;
    }
 }
