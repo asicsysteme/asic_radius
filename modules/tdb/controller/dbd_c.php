@@ -101,7 +101,7 @@ $chart->series[] = array(
                     foreach ($brut_array as $key => $value)
                     {
                         $line .= '<tr>';
-                        $line .= '<td><a href="#" class="this_url" rel="historiq_cp_user" data="'.MInit::crypt_tp('id',$value['id_user'] , 'C').'">'.$value['nom'].'</a></td>';
+                        $line .= '<td><a href="#" class="this_url" rel="cp_users_connexions" data="'.MInit::crypt_tp('id',$value['id_user'] , 'C').'">'.$value['nom'].'</a></td>';
 
                         $line .= '<td class="text-right">'.MInit::formatBytes($value['today_data'],2,true).'</td>';
                         $line .= '<td class="text-right">'.MInit::formatBytes($value['yesterday_data'],2,true).'</td>';
@@ -171,7 +171,7 @@ $chart->series[] = array(
                     foreach ($brut_connect_array as $key => $value)
                     {
                         $line .= '<tr>';
-                        $line .= '<td><a href="#" class="this_url" rel="historiq_cp_user" data="'.MInit::crypt_tp('id',$value['id_user'] , 'C').'">'.$value['nom'].'</a></td>';
+                        $line .= '<td><a href="#" class="this_url" rel="cp_users_connexions" data="'.MInit::crypt_tp('id',$value['id_user'] , 'C').'">'.$value['nom'].'</a></td>';
 
                         $line .= '<td class="text-center">'.$value['etat_connect'].'</td>';
                         
