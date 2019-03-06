@@ -30,7 +30,7 @@
             <div class="form-group">
               <label class="block clearfix">
                 <span class="block input-icon input-icon-right">
-                  <input type="password" id="pass" name="pass" class="form-control" placeholder="Nom d'utilisateur" />
+                  <input type="password" id="pass" name="pass" class="form-control" placeholder="Mot de passe" />
                   <i class="ace-icon fa fa-lock"></i>
                 </span>
               </label>
@@ -39,7 +39,7 @@
 
               <label class="block clearfix ">
                 <span class="block input-icon input-icon-right">
-                  <input type="password" id="passc" name="passc" class="form-control" placeholder="Mot de passe" />
+                  <input type="password" id="passc" name="passc" class="form-control" placeholder="Confirmation" />
                   <i class="ace-icon fa fa-lock"></i>
                 </span>
               </label>
