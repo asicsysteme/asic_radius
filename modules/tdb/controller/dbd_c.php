@@ -16,10 +16,24 @@ if(!$db->Query($sql) OR !$db->RowCount()){
     $cp_data_yestrday = array_column($brut_array, 'yesterday_data');
     $cp_users_name    = array_column($brut_array, 'name');
     $brut_html_table  = $db->GetHTMLTABLE(array('Pseudo' => 1, 'Nom & Prénom' => 1 , 'Aujourd\'hui'=> 1, 'Hier'=> 1));
+    //MInit::formatBytes($value['today_data'],2,true)
     
+    $cp_data_today = array_map(function($value){        
+        return MInit::formatBytes($value,2,true);
+    }, $cp_data_today);
+
+    $cp_data_yestrday = array_map(function($value){        
+        return MInit::formatBytes($value,2,true);
+    }, $cp_data_yestrday);
+    
+
     $cp_data_today = array_map('floatval', $cp_data_today);
+    
+
     $cp_data_yestrday = array_map('floatval', $cp_data_yestrday);
+    
     $cp_data_today_f = ($cp_data_today);
+    
     $cp_data_yestrday_f = ($cp_data_yestrday);
     
 }
@@ -55,7 +69,7 @@ $chart->legend->floating = 1;
 $chart->legend->shadow = 1;
 
 $chart->tooltip->formatter = new HighchartJsExpr("function() {
-    return '' + this.x +': '+ Math.floor(this.y/1024/1024) +' Mb';}");
+    return '' + this.x +': '+ this.y;}");
 
 $chart->plotOptions->column->pointPadding = 0.2;
 $chart->plotOptions->column->borderWidth = 0;
