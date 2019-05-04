@@ -78,14 +78,14 @@ $list_data_table = new Mdatatable();
 //Set tabels used in Query
 $list_data_table->tables = array('radacct');
 //Set Jointure
-$list_data_table->joint = '';
+$list_data_table->joint = 'radacct.username = \''.Mreq::tp('usr_cp').'\'';
 //Call all columns
 $list_data_table->columns = $array_column;
 //Set main table of Query
 $list_data_table->main_table = 'radacct';
 //Where
 $list_data_table->need_notif = false;
-//$list_data_table->where = 'radacct.username = \''.MySQL::SQLValue(Mreq::tp);
+//$list_data_table->where = 'radacct.username = \''.Mreq::tp('usr_cp').'\'';
 //Set Task used for statut line
 $list_data_table->task = 'cp_users_connexions';
 //Set File name for export
@@ -93,6 +93,7 @@ $list_data_table->file_name = 'cp_users_connexions';
 //Set Title of report
 $list_data_table->title_report = 'Historique Connexion';
 //Print JSON DATA
+//$list_data_table->debug = true;
 if(!$data = $list_data_table->Query_maker())
 {
     exit("0#".$list_data_table->log);

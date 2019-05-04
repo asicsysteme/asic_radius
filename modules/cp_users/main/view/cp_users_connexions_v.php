@@ -6,6 +6,7 @@ if(!defined('_MEXEC'))die();
 //Created : 05-02-2019
 //View
 //array colomn
+$user_cp = $info_cp_users->g('username');
 $array_column = array(
 	array(
         'column' => 'radacct.radacctid',
@@ -82,6 +83,7 @@ $html_data_table->task           = 'cp_users_connexions';
 //$html_data_table->btn_add_text =  '';
 $html_data_table->btn_add_check  = true;
 $html_data_table->btn_action     = false;
+$html_data_table->js_extra_data  = MInit::crypt_tp('usr_cp', $user_cp);
 
 
 if(!$data = $html_data_table->table_html())
