@@ -13,16 +13,16 @@ class Update_modul extends Mmodul
 	private function Store_existing_rules($modul_id)
 	{
 		global $db;
-		$sql_isert = "INSERT INTO rules_action_temp (idf, service, userid, descrip)  (
+		$sql_isert = "INSERT INTO sys_rules_temp (idf, service, userid, descrip)  (
                     SELECT
-                    rules_action.idf, rules_action.`service`, rules_action.`userid`, rules_action.`descrip`
+                    sys_rules.idf, sys_rules.`service`, sys_rules.`userid`, sys_rules.`descrip`
                     FROM
-                        `rules_action`
-                        INNER JOIN `task` 
-                            ON (`rules_action`.`appid` = `task`.`id`)
-                        INNER JOIN `modul` 
-                            ON (`task`.`modul` = `modul`.`id`)
-                    WHERE modul.id = $modul_id)";
+                        `sys_rules`
+                        INNER JOIN `sys_task` 
+                            ON (`sys_rules`.`appid` = `sys_task`.`id`)
+                        INNER JOIN `sys_modules` 
+                            ON (`sys_task`.`modul` = `sys_modules`.`id`)
+                    WHERE sys_modules.id = $modul_id)";
         if(!$db->Query($sql_isert))
 		{
 			$this->error = false;
@@ -37,7 +37,7 @@ class Update_modul extends Mmodul
 	private function Clear_temp_rules()
 	{
 		global $db;
-		$sql_delete = "DELETE FROM rules_action_temp ";
+		$sql_delete = "DELETE FROM sys_rules_temp ";
         if(!$db->Query($sql_delete))
 		{
 			$this->error = false;
@@ -117,7 +117,7 @@ class Update_modul extends Mmodul
 	Private function Erase_modul($id_modul)
 	{
 		global $db;
-		$sql_delete = "DELETE FROM modul WHERE id = $id_modul";
+		$sql_delete = "DELETE FROM sys_modules WHERE id = $id_modul";
         if(!$db->Query($sql_delete))
 		{
 			$this->error = false;
@@ -160,12 +160,12 @@ class Update_modul extends Mmodul
 	{
 		global $db;
 		$creusr = MySQL::SQLValue(session::get('userid'));
-		$sql_insert_rules = "INSERT INTO rules_action (appid, idf, descrip, action_id, type, 
+		$sql_insert_rules = "INSERT INTO sys_rules (appid, idf, descrip, action_id, type, 
 		                    userid, service, creusr) 
 		                    SELECT   ta.appid,  ta.idf,  ta.descrip,  ta.id,  
 		                    ta.type,  rat.userid,  rat.service , $creusr
                             FROM
-                              task_action ta, rules_action_temp rat 
+                              sys_task_action ta, sys_rules_temp rat 
                             WHERE  ta.idf = rat.`idf` ";
         if(!$db->Query($sql_insert_rules))
 		{
