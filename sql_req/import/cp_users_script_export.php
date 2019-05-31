@@ -1,5 +1,5 @@
 <?php 
-//Export Module 'cp_users' Date: 31-05-2019 09:41:00Byadmin
+//Export Module 'cp_users' Date: 31-05-2019 09:58:34Byadmin
 global $db;
 if(!$result_insert_modul = $db->Query("insert into sys_modules (modul, description, rep_modul, tables, app_modul, modul_setting, is_setting, etat, services)values('cp_users', 'Gestion utilisateurs','cp_users/main','radcheck','cp_users',NULL,'0', '1', '[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\"]')")){$this->error = false; $this->log .= "<li> Error Import Modul 'cp_users' </li>";}
   //Workflow '59' 'Création cp_users'
