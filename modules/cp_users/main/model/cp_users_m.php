@@ -259,7 +259,105 @@ class Mcp_users
     		return true;
     	}
     }
+    
 
+    public function delete_cp_user()
+    {       
+        global $db;
+        //Format etat (if 0 ==> 1 activation else 1 ==> 0 Désactivation)
+        //Format etat from WF tables
+        
+        $new_etat_line = Mmodul::get_etat_wf('delete_cp_users');
+        $old_etat_line = Mmodul::get_multi_etat_wf(array('quota_cp_users', 'block_cp_users'), true);
+
+        //if etat not correct then return error
+        if(!in_array($this->g('etat'), $old_etat_line))
+        {
+            $this->log   .= '</br>Impossible de changer le statut!';
+            $this->log   .= '</br>Etat not correct';
+            return false;
+        }
+        $values["etat"]        = MySQL::SQLValue($new_etat_line);
+        $values["updusr"]      = MySQL::SQLValue(session::get('userid'));
+        $values["upddat"]      = 'CURRENT_TIMESTAMP';
+        $wheres['id']          = $this->id_cp_users;
+
+        // Execute the update and show error case error
+        if(!$result = $db->UpdateRows($this->table, $values, $wheres))
+        {
+            $this->log   .= '</br>Impossible de changer le statut!';
+            $this->log   .= '</br>'.$db->Error();
+            $this->error  = false;
+
+        }else{
+            $this->log   .= '</br>Modification réussie! ';
+            $this->error  = true;
+            if(!Mlog::log_exec($this->table, $this->id_cp_users, 'Suppression Utilisateur', 'Delete'))
+            {
+                $this->log .= '</br>Un problème de log ';
+                $this->error = false;
+            }
+               //Esspionage
+            if(!$db->After_update($this->table, $this->id_cp_users, $values, $this->cp_users_info)){
+                $this->log .= '</br>Problème track Update';
+                $this->error = false;   
+            }
+        }
+        if($this->error == false){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public function deblpoquer_cp_user()
+    {       
+        global $db;
+        //Format etat (if 0 ==> 1 activation else 1 ==> 0 Désactivation)
+        //Format etat from WF tables
+        
+        $new_etat_line = Mmodul::get_etat_wf('valid_cp_users');
+        $old_etat_line = Mmodul::get_multi_etat_wf(array('quota_cp_users', 'block_cp_users'), true);
+
+        //if etat not correct then return error
+        if(!in_array($this->g('etat'), $old_etat_line))
+        {
+            $this->log   .= '</br>Impossible de changer le statut!';
+            $this->log   .= '</br>Etat not correct';
+            return false;
+        }
+        $values["etat"]        = MySQL::SQLValue($new_etat_line);
+        $values["updusr"]      = MySQL::SQLValue(session::get('userid'));
+        $values["upddat"]      = 'CURRENT_TIMESTAMP';
+        $wheres['id']          = $this->id_cp_users;
+
+        // Execute the update and show error case error
+        if(!$result = $db->UpdateRows($this->table, $values, $wheres))
+        {
+            $this->log   .= '</br>Impossible de changer le statut!';
+            $this->log   .= '</br>'.$db->Error();
+            $this->error  = false;
+
+        }else{
+            $this->log   .= '</br>Modification réussie! ';
+            $this->error  = true;
+            if(!Mlog::log_exec($this->table, $this->id_cp_users, 'Déblocage Utilisateur', 'Update'))
+            {
+                $this->log .= '</br>Un problème de log ';
+                $this->error = false;
+            }
+               //Esspionage
+            if(!$db->After_update($this->table, $this->id_cp_users, $values, $this->cp_users_info)){
+                $this->log .= '</br>Problème track Update';
+                $this->error = false;   
+            }
+        }
+        if($this->error == false){
+            return false;
+        }else{
+            return true;
+        }
+    }
     public function bloque_cp_users($motif)
     {       
         global $db;

@@ -31,10 +31,10 @@ class Export_modul extends Mmodul
 		$modul_setting = MySQL::SQLValue($this->modul_info['modul_setting']);
         $is_setting    = MySQL::SQLValue($this->modul_info['is_setting']);
         $etat          = MySQL::SQLValue($this->modul_info['etat']);
-        $services      = MySQL::SQLValue($this->modul_info['services']);
-
-
-
+        
+        $services      = addslashes($this->modul_info['services']);
+        $services      = MySQL::SQLValue($services);
+        
 		$content   = '<?php ' . PHP_EOL;
 		$content  .= '//Export Module '.$modul.' Date: '.date('d-m-Y H:i:s') .'By'. session::get('username'). PHP_EOL;
 		$content  .= 'global $db;' . PHP_EOL;
@@ -122,17 +122,18 @@ class Export_modul extends Mmodul
 					
 					$modul_id     = MySQL::SQLValue($this->id_modul);
 					$id_wf        = MySQL::SQLValue($row['id']);
-					$descrip       = MySQL::SQLValue($row['descrip']);
+					$descrip      = MySQL::SQLValue($row['descrip']);
 					$etat_line    = MySQL::SQLValue($row['etat_line']);
 					$code         = MySQL::SQLValue($row['code']);					
 					$color        = MySQL::SQLValue($row['color']);
 					$etat_desc    = MySQL::SQLValue($row['etat_desc']);
-					$message_etat = MySQL::SQLValue($row['message_etat']);
+					$message_etat = addslashes($row['message_etat']);
+					$message_etat = MySQL::SQLValue($message_etat);
 					$creusr       = MySQL::SQLValue(session::get('userid'));
 					
 
 					$content  .= '  //Workflow '.$id_wf.' '.$descrip.PHP_EOL;
-					$content  .= '  if(!$result_task_'.$row['id'].' = $db->Query("INSERT INTO sys_workflow (descrip, modul_id, etat_line, code, color, etat_desc, message_etat, creusr)VALUES('.$descrip.', $result_insert_modul, ,'.$etat_line.', '.$code.', '.$color.', '.$etat_desc.', '.$message_etat.', '.$creusr.')")){$this->error = false; $this->log .= "<li> Error Import task '.$descrip.' </li>";}'. PHP_EOL;
+					$content  .= '  if(!$result_task_'.$row['id'].' = $db->Query("INSERT INTO sys_workflow (descrip, modul_id, etat_line, code, color, etat_desc, message_etat, creusr)VALUES('.$descrip.', $result_insert_modul, '.$etat_line.', '.$code.', '.$color.', '.$etat_desc.', '.$message_etat.', '.$creusr.')")){$this->error = false; $this->log .= "<li> Error Import Workflow '.$descrip.' </li>";}'. PHP_EOL;
 							
 				}
 
@@ -185,7 +186,8 @@ class Export_modul extends Mmodul
 					$app_sys   = MySQL::SQLValue($row['app_sys']);
 					$etat      = MySQL::SQLValue($row['etat']);
 					$type_view = MySQL::SQLValue($row['type_view']);
-					$services  = MySQL::SQLValue($row['services']);
+					$services  = addslashes($row['services']);
+					$services  = MySQL::SQLValue($services);
 
 
 
@@ -235,22 +237,24 @@ class Export_modul extends Mmodul
 				$actions_array = $db->RecordsArray();
 
 				foreach ($actions_array as $row){
-					$action_id             = $row['id'];
-					$appid                 = $row['appid'];
-					$idf                   = MySQL::SQLValue($row['idf']);
-					$descrip               = MySQL::SQLValue($row['descrip']);
-					$app                   = MySQL::SQLValue($row['app']);
-					$mode_exec             = MySQL::SQLValue($row['mode_exec']);
-					$code                  = MySQL::SQLValue($row['code']);
-					$code                  = $code == NULL ? '' : '".'.$code.'."';
-					$type                  = MySQL::SQLValue($row['type']);
-					$service               = MySQL::SQLValue($row['service']);
-					$etat_line             = MySQL::SQLValue($row['etat_line']);
-					$notif                 = MySQL::SQLValue($row['notif']);
-					$etat_desc             = MySQL::SQLValue($row['etat_desc']);
-					$message_etat          = MySQL::SQLValue($row['message_etat']);
-					$message_etat          = $message_etat == NULL ? ' ' : '".'.$message_etat.'."';
-					$message_class         = MySQL::SQLValue($row['message_class']);
+					$action_id     = $row['id'];
+					$appid         = $row['appid'];
+					$idf           = MySQL::SQLValue($row['idf']);
+					$descrip       = MySQL::SQLValue($row['descrip']);
+					$app           = MySQL::SQLValue($row['app']);
+					$mode_exec     = MySQL::SQLValue($row['mode_exec']);
+					$code          = addslashes($row['code']);
+					$code          = MySQL::SQLValue($code);
+					$code          = $code == NULL ? '' : '".'.$code.'."';
+					$type          = MySQL::SQLValue($row['type']);
+					$service       = addslashes($row['service']);
+					$service       = MySQL::SQLValue($service);
+					$etat_line     = MySQL::SQLValue($row['etat_line']);
+					$notif         = MySQL::SQLValue($row['notif']);
+					$etat_desc     = MySQL::SQLValue($row['etat_desc']);
+					$message_etat  = MySQL::SQLValue($row['message_etat']);
+					$message_etat  = $message_etat == NULL ? ' ' : '".'.$message_etat.'."';
+					$message_class = MySQL::SQLValue($row['message_class']);
 
 					
 
@@ -286,7 +290,7 @@ class Export_modul extends Mmodul
 			if(strstr($row, $terminison_file))
 			{
 				$modul_name = str_replace($terminison_file,null,$row);
-				$result = $db->QuerySingleValue0("SELECT modul FROM modul 
+				$result = $db->QuerySingleValue0("SELECT modul FROM sys_modules 
 			    WHERE modul = ". MySQL::SQLValue($modul_name));
 			    
 		        if ($result == "0") 
